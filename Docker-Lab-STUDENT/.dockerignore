@@ -1,0 +1,4 @@
+# >>> TASK B2: list what Docker should NOT copy into the image.
+# Add one path per line — at least venv/, .git/, and __pycache__/,
+# plus anything else that doesn't belong in a shipped image.
+# (lines starting with # are comments)

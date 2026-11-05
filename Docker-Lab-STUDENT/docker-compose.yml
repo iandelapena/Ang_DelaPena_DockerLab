@@ -1,0 +1,14 @@
+# SecureNotes — STUDENT docker-compose.yml
+#
+# Describe TWO services so `docker compose up` runs the whole stack:
+#   api -> build: .      (your image), map port 8000, depends_on db,
+#                         and pass DATABASE_URL so it can reach the db
+#   db  -> image: postgres:16, with a volume so data survives, and
+#                         POSTGRES_USER / POSTGRES_PASSWORD / POSTGRES_DB
+#
+# Check your structure with:  pytest tests/test_compose.py
+# Then run it:  docker compose up -d   &&   curl localhost:8000/health/db
+#
+# >>> TASK C: fill in the two services below (and a top-level volumes:)
+
+services:
