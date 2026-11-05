@@ -41,12 +41,12 @@ that happens with real Docker commands, and the screenshots are your proof.
 
 File: `Dockerfile`  ·  check: `pytest tests/test_dockerfile.py`
 
-- [ ] **A1** — `FROM` a small, pinned Python base (e.g. `python:3.12-slim`)
-- [ ] **A2** — set a `WORKDIR` (e.g. `/app`)
-- [ ] **A3** — `COPY requirements.txt .` then `RUN pip install -r requirements.txt`
+- [x] **A1** — `FROM` a small, pinned Python base (e.g. `python:3.12-slim`)
+- [x] **A2** — set a `WORKDIR` (e.g. `/app`)
+- [x] **A3** — `COPY requirements.txt .` then `RUN pip install -r requirements.txt`
       **before** copying the code (so the install layer caches)
-- [ ] **A4** — `COPY . .` to bring in the rest of the source
-- [ ] **A5** — `EXPOSE 8000` and a `CMD` that starts uvicorn on `--host 0.0.0.0`
+- [x] **A4** — `COPY . .` to bring in the rest of the source
+- [x] **A5** — `EXPOSE 8000` and a `CMD` that starts uvicorn on `--host 0.0.0.0`
 
 Then build and run it for real:
 
@@ -57,8 +57,8 @@ docker run -p 8000:8000 securenotes      # open http://localhost:8000/docs
 
 ## Part B — Make it a good image  (~25 min)
 
-- [ ] **B1** — add a non-root `USER` (create one, then switch to it)
-- [ ] **B2** — fill in `.dockerignore` so `venv/`, `.git/`, `__pycache__/` and
+- [x] **B1** — add a non-root `USER` (create one, then switch to it)
+- [x] **B2** — fill in `.dockerignore` so `venv/`, `.git/`, `__pycache__/` and
       other junk never get copied into the image
 
 Rebuild — the image should still work, and the build context shrinks.
@@ -87,16 +87,18 @@ The `/health/db` endpoint is already in the app — with no database it says
 
 ## Part D — Ship it & submit  (~20 min)
 
+- [x] Create the GitHub repository and complete the initial push.
+- [x] Capture the successful Docker build screenshot.
+- [x] Capture the running API documentation (`/docs`) screenshot.
+- [ ] Capture the third screenshot showing `docker compose ps` with both
+      containers up (or the `{"database":"ok"}` response).
+
 ```bash
 git init && git add . && git commit -m "Dockerized SecureNotes"
 git branch -M main
 git remote add origin https://github.com/<you>/securenotes-docker.git
 git push -u origin main
 ```
-
-Capture **three screenshots**: (1) `docker build` finishing, (2) `/docs` open in
-the browser from the running container, (3) `docker compose ps` with both
-containers up (or the `{"database":"ok"}` response).
 
 ---
 
