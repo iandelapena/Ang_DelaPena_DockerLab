@@ -1,14 +1,31 @@
-# SecureNotes — STUDENT docker-compose.yml
-#
-# Describe TWO services so `docker compose up` runs the whole stack:
-#   api -> build: .      (your image), map port 8000, depends_on db,
-#                         and pass DATABASE_URL so it can reach the db
-#   db  -> image: postgres:16, with a volume so data survives, and
-#                         POSTGRES_USER / POSTGRES_PASSWORD / POSTGRES_DB
-#
-# Check your structure with:  pytest tests/test_compose.py
-# Then run it:  docker compose up -d   &&   curl localhost:8000/health/db
-#
-# >>> TASK C: fill in the two services below (and a top-level volumes:)
+
+# SecureNotes - Docker Compose Configuration
 
 services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://securenotes:securepass123@db:5432/securenotes
+
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: securenotes
+      POSTGRES_PASSWORD: securepass123
+      POSTGRES_DB: securenotes
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U securenotes -d securenotes"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

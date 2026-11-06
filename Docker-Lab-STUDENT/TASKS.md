@@ -67,9 +67,9 @@ Rebuild — the image should still work, and the build context shrinks.
 
 File: `docker-compose.yml`  ·  check: `pytest tests/test_compose.py`
 
-- [ ] **C1** — an `api` service that `build:`s from your Dockerfile, maps port
+- [x] **C1** — an `api` service that `build:`s from your Dockerfile, maps port
       `8000`, `depends_on` the db, and gets `DATABASE_URL`
-- [ ] **C2** — a `db` service using `postgres:16`, with a volume and the
+- [x] **C2** — a `db` service using `postgres:16`, with a volume and the
       `POSTGRES_USER` / `POSTGRES_PASSWORD` / `POSTGRES_DB` env vars
 
 Bring it up and prove the two containers can talk:
@@ -90,7 +90,7 @@ The `/health/db` endpoint is already in the app — with no database it says
 - [x] Create the GitHub repository and complete the initial push.
 - [x] Capture the successful Docker build screenshot.
 - [x] Capture the running API documentation (`/docs`) screenshot.
-- [ ] Capture the third screenshot showing `docker compose ps` with both
+- [x] Capture the third screenshot showing `docker compose ps` with both
       containers up (or the `{"database":"ok"}` response).
 
 ```bash
@@ -107,5 +107,11 @@ git push -u origin main
 1. Your teammate clones the repo on a different OS and runs `docker run`. Why
    does it behave the same as on your machine, when running the app directly
    might not?
+
+   A Docker container includes the application and its required dependencies in one environment. This allows it to run consistently across different operating systems. It reduces problems caused by differences in system configurations. As a result, teammates can run the application without having to set up everything separately on their machines.
+
+
 2. Why copy `requirements.txt` and install *before* copying the rest of the
    code? What does it save on a rebuild?
+
+   Installing the requirements first allows Docker to cache the dependencies layer. Docker can reuse this cached layer when the application code changes. This prevents it from reinstalling all the requirements every time the image is rebuilt. As a result, the rebuilding process becomes faster and more efficient.
